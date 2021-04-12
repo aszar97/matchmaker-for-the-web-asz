@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- 
+Adela Zarzour
+ CPSC-20000
+ Sprint 6
+ MatchmakerWeb
+ All rights reserved. 
+-->
+
+
+<head>
+    <meta charset="UTF-8">
+    <title> Matchmaker</title>
+</head>
+
+<body>
+    <h1> Matchmaker Web </h1>
+    <p>
+         Please select your response to each of the 5 questions below to recieve your compatibility 
+         score out of 100: 
+    </p>
+
+
+    <label>Cats are the true "man's best friend".</label>
+    <br>
+    <br>
+    <select id="q1">
+      <option value="5">Completely Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral </option>
+      <option value="2">Disagree</option>
+      <option value="1">Completely Disagree</option>
+    </select>
+<br>
+<br>
+    <label>Black coffee is delicious.</label>
+    <br>
+    <br>
+    <select id="q2">
+      <option value="5">Completely Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Completely Disagree</option>
+    </select>
+<br>
+<br>
+    <label>Flowers are overrated.</label>
+    <br>
+    <br>
+    <select id="q3">
+      <option value="5">Completely Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Completely Disagree</option>
+    </select>
+<br>
+<br>
+    <label>Raisin Bran cereal is the superior breakfast.</label>
+    <br>
+    <br>
+    <select id="q4">
+      <option value="5">Completely Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Completely Disagree</option>
+    </select>
+<br>
+<br>
+    <label>Shared values are more important for a successful relationship than shared interests.</label>
+    <br>
+    <br>
+    <select id="q5">
+      <option value="5">Completely Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Completely Disagree</option>
+    </select>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+<button onclick="calculateCompatibility()"> Calculate Compatibility</button>
+<p id="compatibility"></p>
+
+<script> 
+console.log("Starting Matchmaker... ");
+
+function calculateCompatibility() {
+    console.log("calculateCompatibility()");
+
+    const DESIRED_RESPONSE = [
+        5, // completely agree
+        1, // completely disagree
+        1, // completely disagree
+        5, // completely disagree
+        5, // completely agree
+    ]
+
+    const MAX_SCORE = 25;
+
+    // Get the current values of the dropdown controls
+    let question1Response = document.getElementById("q1").selectedOptions[0].value;
+    let question2Response = document.getElementById("q2").selectedOptions[0].value;
+    let question3Response = document.getElementById("q3").selectedOptions[0].value;
+    let question4Response = document.getElementById("q4").selectedOptions[0].value;
+    let question5Response = document.getElementById("q5").selectedOptions[0].value;
+
+
+    //Optionally log the values associated with question 1 through 3 to the console
+    console.log("Question 1 Answers:");
+    console.log(document.getElementById("q1").selectedOptions[0].text);
+    console.log(document.getElementById("q1").selectedOptions[0].value);
+    console.log(question1Response);
+
+    console.log("Question 2 Answers:");
+    console.log(document.getElementById("q2").selectedOptions[0].text);
+    console.log(document.getElementById("q2").selectedOptions[0].value);
+    console.log(question2Response);
+
+    console.log("Question 3 Answers:");
+    console.log(document.getElementById("q3").selectedOptions[0].text);
+    console.log(document.getElementById("q3").selectedOptions[0].value);
+    console.log(question3Response);
+
+    console.log("Question 4 Answers:");
+    console.log(document.getElementById("q4").selectedOptions[0].text);
+    console.log(document.getElementById("q4").selectedOptions[0].value);
+    console.log(question4Response);
+
+    console.log("Question 5 Answers:");
+    console.log(document.getElementById("q5").selectedOptions[0].text);
+    console.log(document.getElementById("q5").selectedOptions[0].value);
+    console.log(question5Response);
+
+
+
+    // Todo: Calculate compatibility scores
+    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
+    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
+    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
+    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
+    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+
+    console.log("c1="+question1Compatibility);
+    console.log("c2="+question2Compatibility);
+    console.log("c3="+question3Compatibility);
+    console.log("c4="+question4Compatibility);
+    console.log("c5="+question5Compatibility);
+
+    // Calculate total compatibility
+    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + 
+    question4Compatibility + question5Compatibility;
+    console.log("totalCompatibility")
+
+    //Convert totalCompatibility to a percentage
+    totalCompatibility *= 100 / MAX_SCORE;
+    totalCompatibility = Math.round(totalCompatibility);
+    console.log("totalCompatibility=" + totalCompatibility);
+
+
+
+var output;
+var tc = totalCompatibility;
+if (tc < 40) {
+  output = "Not looking for anything right now!";
+} else if (tc < 80) {
+  output = "Friends?";
+} else {
+  output = "Meet my cat?";
+}
+
+    document.getElementById("compatibility").innerHTML = "Your compatibility is " + totalCompatibility;
+}
+
+
+</script>
+
+</body>
+</html>
